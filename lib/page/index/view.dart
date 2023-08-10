@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:qian/component/bottom_nav_bar/view.dart';
 import 'package:qian/model/local/global.dart';
 import 'package:qian/page/category/view.dart';
-import 'package:qian/util/adaptor.dart';
+import 'package:qian/component/common/common.dart';
 
 import 'logic.dart';
 
@@ -17,14 +17,15 @@ class IndexPage extends StatelessWidget {
     switch (index) {
       case NavBarData.indexCategories:
         return const CategoryPage();
-      case _: return Text("${logic.navBarIndex}");
+      case _:
+        return Text("${logic.navBarIndex}");
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _getAppBar(),
+      appBar: getAppBar(),
       bottomNavigationBar: BottomNavBarComponent(
         navBarDataList: navBarDataList,
         onIndexChange: (index) {
@@ -37,14 +38,5 @@ class IndexPage extends StatelessWidget {
     );
   }
 
-  PreferredSizeWidget _getAppBar() {
-    return AppBar(
-      centerTitle: false,
-      shape: Border.all(color: SU.theme.focusColor),
-      title: ListenableBuilder(
-          listenable: SU.appBarTitle,
-          builder: (context, _) => Text(SU.appBarTitle.value)
-      ),
-    );
-  }
+
 }

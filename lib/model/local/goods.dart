@@ -19,7 +19,7 @@ class BaseGoods {
   BaseGoods(
       this.id, this.shortName, this.goodsImg, this.goodsPrice, this.finalPrice);
 
-  static from(GoodsJson gj) {
+  static BaseGoods from(GoodsJson gj) {
     return BaseGoods(gj.id ?? 0, gj.shortName ?? "", gj.goodsImg ?? "",
         gj.goodsPrice ?? double.infinity, gj.finalPrice ?? double.infinity);
   }

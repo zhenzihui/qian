@@ -3,11 +3,12 @@ class SubCategoryItem {
   final int id;
   final String imageUrl;
   final String title;
+  final int parentId;
 
-  SubCategoryItem(this.imageUrl, this.title, {required this.id});
+  SubCategoryItem(this.imageUrl, this.title,{required this.id,  required this.parentId});
 
   static SubCategoryItem fromJson(dynamic json) {
-    return SubCategoryItem(json["scpic"], json["subcname"], id: json["subcid"]);
+    return SubCategoryItem(json["scpic"], json["subcname"], id: json["subcid"], parentId: json['parent_id']);
   }
 }
 
