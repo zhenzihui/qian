@@ -19,6 +19,7 @@ class JDProvider extends GetConnect {
     }
     debugPrint("request: $reqBody");
     return post(url, reqBody).then((resp) {
+      // debugPrint("call $url response msg: ${resp.bodyString}");
       final bizBody = BaseResp.fromJson(resp.bodyString ?? "{}");
       if (!bizBody.isBizSuccess) {
         return Future.error(bizBody.msg);

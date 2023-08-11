@@ -46,9 +46,9 @@ class BaseRequest extends JsonRequest {
 
 //查询商品列表
 class GoodsRequest extends JsonRequest {
-  final int pageIndex;
-  final int pageSize;
-  final String? keyword;
+  int pageIndex;
+  int pageSize;
+  String? keyword;
   //商品一级类目： 0全部；1居家日用；2食品；3生鲜；4图书；5美妆个护；
   // 6母婴；7数码家电；8内衣；9配饰；10女装；11男装；12鞋品；13家装家纺；
   // 14文娱车品；15箱包；16户外运动

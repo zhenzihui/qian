@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:qian/model/local/goods.dart';
 import 'package:qian/model/remote/json_data.dart';
@@ -11,15 +12,28 @@ class CategoryDetailLogic extends GetxController {
   static const String paramCategoryName = "cate_name";
 
   //当前的数据list
-  final dataList = [].obs;
+  final List<BaseGoods> dataList = [];
 
-  final searchReq = GoodsRequest.page(1, 20).obs;
+  final searchReq = GoodsRequest.page(1, 50).obs;
 
   final provider = Get.find<JDProvider>();
 
   Future<List<BaseGoods>> findGoods(GoodsRequest req) {
     return provider.universalGoodsList(req);
   }
+  final scrollCtl = ScrollController();
+
+  initScrollControl() {
+    scrollCtl.addListener(() {
+      if(scrollCtl.position.atEdge) {
+        searchReq.update((d) {
+          d?.pageIndex += 1;
+        });
+      }
+    });
+
+  }
+
 
 
 
