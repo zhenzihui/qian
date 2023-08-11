@@ -10,11 +10,13 @@ class CategoryDetailLogic extends GetxController {
   static const String paramCategoryId = "cate_id";
   //参数：类目名字
   static const String paramCategoryName = "cate_name";
+  //参数 搜索
+  static const String paramGoodsSearch = "search";
 
   //当前的数据list
   final List<BaseGoods> dataList = [];
 
-  final searchReq = GoodsRequest.page(1, 50).obs;
+  late Rx<GoodsRequest> searchReq;
 
   final provider = Get.find<JDProvider>();
 
@@ -22,6 +24,10 @@ class CategoryDetailLogic extends GetxController {
     return provider.universalGoodsList(req);
   }
   final scrollCtl = ScrollController();
+
+  initRequest(GoodsRequest goodsRequest) {
+    searchReq =goodsRequest.obs;
+  }
 
   initScrollControl() {
     scrollCtl.addListener(() {

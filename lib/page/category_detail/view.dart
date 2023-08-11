@@ -1,8 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qian/component/common/common.dart';
+import 'package:qian/component/goods/view.dart';
 import 'package:qian/model/local/goods.dart';
+import 'package:qian/model/remote/json_data.dart';
+import 'package:qian/util/adaptor.dart';
 
 import 'logic.dart';
 
@@ -15,10 +20,12 @@ class CategoryDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final id = Get.parameters[CategoryDetailLogic.paramCategoryId];
     final name = Get.parameters[CategoryDetailLogic.paramCategoryName];
+    final search = Get.parameters[CategoryDetailLogic.paramGoodsSearch];
 
     if (id == null) {
       return Container();
     }
+    logic.initRequest(GoodsRequest.page(1, 20, goodsType: id, keyword: search));
     logic
         .findGoods(logic.searchReq.value)
         .then((value) => logic.dataList.addAll(value));
@@ -26,7 +33,7 @@ class CategoryDetailPage extends StatelessWidget {
     return Scaffold(
         floatingActionButton: TextButton.icon(
             onPressed: () => logic.scrollCtl
-                .animateTo(-10, duration: 0.5.seconds, curve: Curves.bounceIn),
+                .animateTo(0, duration: 0.5.seconds, curve: Curves.bounceIn),
             icon: Icon(CupertinoIcons.arrow_up_circle_fill),
             label: Text("回")),
         appBar: getAppBar(title: name),
@@ -41,10 +48,13 @@ class CategoryDetailPage extends StatelessWidget {
                   SliverGrid(
                       delegate:
                           SliverChildListDelegate.fixed(logic.dataList.map((e) {
-                        return Text(e.shortName);
+                        return GoodsComponent(goods: e,);
                       }).toList()),
                       gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
+                          SliverGridDelegateWithFixedCrossAxisCount(
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                              mainAxisExtent: SU.rpx(238),
                               crossAxisCount: 2)),
                   SliverAppBar(
                     backgroundColor: Colors.transparent,
