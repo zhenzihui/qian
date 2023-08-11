@@ -11,6 +11,8 @@ class GoodsComponent extends StatelessWidget {
   GoodsComponent({Key? key, required this.goods}) : super(key: key);
   final logic = Get.put(GoodsLogic());
 
+  static const dimColor = Colors.deepOrange;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -21,14 +23,40 @@ class GoodsComponent extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(5)),
-            child: Image.network(goods.goodsImg,
+            child: Image.network(
+              goods.goodsImg,
               fit: BoxFit.cover,
-
             ),
           ),
-          Text(goods.shortName, maxLines: 1,),
-          Text("¥${goods.finalPrice}")
-
+          Text(
+            goods.shortName,
+            maxLines: 1,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "预计劵后",
+                    style: TextStyle(fontSize: 14, color: dimColor),
+                  ),
+                  Text(
+                    "¥${goods.finalPrice}",
+                    style: const TextStyle(fontSize: 18, color: dimColor),
+                  ),
+                ],
+              ),
+              Text(
+                "¥${goods.goodsPrice}",
+                style: const TextStyle(
+                  // backgroundColor: Colors.red,
+                  decoration: TextDecoration.lineThrough,
+                ),
+              )
+            ],
+          )
         ],
       ),
     );

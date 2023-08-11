@@ -13,3 +13,6 @@ PreferredSizeWidget getAppBar({String? title}) {
         builder: (context, _) => Text(SU.appBarTitle.value)),
   );
 }
+
+
+get defaultPagePadding => EdgeInsets.only(left: SU.rpx(8), right: SU.rpx(8));

@@ -37,35 +37,39 @@ class CategoryDetailPage extends StatelessWidget {
             icon: Icon(CupertinoIcons.arrow_up_circle_fill),
             label: Text("回")),
         appBar: getAppBar(title: name),
-        body: Obx(() {
-          return FutureBuilder(
-              future: logic.findGoods(logic.searchReq.value),
-              builder: (context, snapshot) {
-                final incomingData = snapshot.data ?? [];
+        body: Padding(
+          padding: defaultPagePadding,
+          child: Obx(() {
+            return FutureBuilder(
+                future: logic.findGoods(logic.searchReq.value),
+                builder: (context, snapshot) {
+                  final incomingData = snapshot.data ?? [];
 
-                logic.dataList.addAll(incomingData);
-                return CustomScrollView(controller: logic.scrollCtl, slivers: [
-                  SliverGrid(
-                      delegate:
-                          SliverChildListDelegate.fixed(logic.dataList.map((e) {
-                        return GoodsComponent(goods: e,);
-                      }).toList()),
-                      gridDelegate:
-                          SliverGridDelegateWithFixedCrossAxisCount(
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
-                              mainAxisExtent: SU.rpx(238),
-                              crossAxisCount: 2)),
-                  SliverAppBar(
-                    backgroundColor: Colors.transparent,
-                    automaticallyImplyLeading: false,
-                    title: snapshot.connectionState == ConnectionState.done &&
-                            incomingData.isEmpty
-                        ? Divider()
-                        : CupertinoActivityIndicator(),
-                  )
-                ]);
-              });
-        }));
+                  logic.dataList.addAll(incomingData);
+                  return CustomScrollView(controller: logic.scrollCtl, slivers: [
+                    SliverGrid(
+                        delegate:
+                            SliverChildListDelegate.fixed(logic.dataList.map((e) {
+                          return GoodsComponent(goods: e,);
+                        }).toList()),
+                        gridDelegate:
+                            SliverGridDelegateWithFixedCrossAxisCount(
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                                mainAxisExtent: SU.rpx(238),
+                                crossAxisCount: 2)),
+                    SliverAppBar(
+                      centerTitle: true,
+                      backgroundColor: Colors.transparent,
+                      automaticallyImplyLeading: false,
+                      title: snapshot.connectionState == ConnectionState.done &&
+                              incomingData.isEmpty
+                          ? const Divider()
+                          : const CupertinoActivityIndicator(),
+                    )
+                  ]);
+                });
+          }),
+        ));
   }
 }
