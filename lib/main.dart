@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qian/page/category/view.dart';
 import 'package:qian/page/category_detail/view.dart';
+import 'package:qian/page/goods_detail/view.dart';
 import 'package:qian/page/index/view.dart';
 import 'package:qian/util/adaptor.dart';
 
@@ -39,6 +40,7 @@ _pages({Transition? transition}) {
     GetPage(name: "/", page: () => IndexPage(), transition: transition),
     GetPage(name: "/category", page: () => const CategoryPage(), transition: transition),
     GetPage(name: "/category-detail", page: () => CategoryDetailPage(), transition: transition),
+    GetPage(name: "/goods-detail", page: () => GoodsDetailPage(), transition: transition),
     // GetPage(name: "/", page: () => IndexPage(), transition: transition),
     // GetPage(name: "/", page: () => IndexPage(), transition: transition),
 

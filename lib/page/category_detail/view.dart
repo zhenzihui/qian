@@ -7,6 +7,8 @@ import 'package:qian/component/common/common.dart';
 import 'package:qian/component/goods/view.dart';
 import 'package:qian/model/local/goods.dart';
 import 'package:qian/model/remote/json_data.dart';
+import 'package:qian/page/goods_detail/logic.dart';
+import 'package:qian/page/goods_detail/view.dart';
 import 'package:qian/util/adaptor.dart';
 
 import 'logic.dart';
@@ -50,7 +52,11 @@ class CategoryDetailPage extends StatelessWidget {
                     SliverGrid(
                         delegate:
                             SliverChildListDelegate.fixed(logic.dataList.map((e) {
-                          return GoodsComponent(goods: e,);
+                          return GoodsComponent(goods: e,
+                          onTap: () => Get.toNamed("goods-detail", parameters: {
+                            GoodsDetailLogic.paramGoodsLink: e.link??""
+                          }),
+                          );
                         }).toList()),
                         gridDelegate:
                             SliverGridDelegateWithFixedCrossAxisCount(

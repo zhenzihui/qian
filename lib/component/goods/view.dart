@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qian/model/local/goods.dart';
-import 'package:qian/util/adaptor.dart';
 
 import 'logic.dart';
 
 class GoodsComponent extends StatelessWidget {
   final BaseGoods goods;
+  final VoidCallback? onTap;
 
-  GoodsComponent({Key? key, required this.goods}) : super(key: key);
+  GoodsComponent({Key? key, required this.goods, this.onTap}) : super(key: key);
   final logic = Get.put(GoodsLogic());
 
   static const dimColor = Colors.deepOrange;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: SU.rpx(156),
+    return GestureDetector(
+      onTap: onTap,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
