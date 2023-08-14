@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:qian/ext/extendable_theme.dart';
 import 'package:qian/model/local/goods.dart';
 
 import 'logic.dart';
-
+//单个商品item
 class GoodsComponent extends StatelessWidget {
   final BaseGoods goods;
   final VoidCallback? onTap;
@@ -11,53 +12,69 @@ class GoodsComponent extends StatelessWidget {
   GoodsComponent({Key? key, required this.goods, this.onTap}) : super(key: key);
   final logic = Get.put(GoodsLogic());
 
-  static const dimColor = Colors.deepOrange;
-
   @override
   Widget build(BuildContext context) {
+    final theme = MyThemeWidget.of(context)!;
+
     return GestureDetector(
       onTap: onTap,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-            child: Image.network(
-              goods.goodsImg,
-              fit: BoxFit.cover,
+      child: Container(
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: theme.smallBorderRadius),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.only(
+                  topLeft: theme.smallRadius, topRight: theme.smallRadius),
+              child: Image.network(
+                goods.goodsImg,
+                fit: BoxFit.fill,
+              ),
             ),
-          ),
-          Text(
-            goods.shortName,
-            maxLines: 1,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
+            Padding(
+              padding: EdgeInsets.only(
+                  left: theme.paddingDefault, right: theme.paddingDefault),
+              child: Text(
+                goods.shortName,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  left: theme.paddingDefault,
+                  right: theme.paddingDefault,
+                  bottom: theme.paddingDefault),
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    "预计劵后",
-                    style: TextStyle(fontSize: 14, color: dimColor),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "预计劵后",
+                        style: theme.specialPriceText,
+                      ),
+                      Text(
+                        "¥${goods.finalPrice}",
+                        style: theme.specialPriceText,
+                      ),
+                    ],
                   ),
                   Text(
-                    "¥${goods.finalPrice}",
-                    style: const TextStyle(fontSize: 18, color: dimColor),
-                  ),
+                    "¥${goods.goodsPrice}",
+                    style: const TextStyle(
+                      // backgroundColor: Colors.red,
+                      decoration: TextDecoration.lineThrough,
+                    ),
+                  )
                 ],
               ),
-              Text(
-                "¥${goods.goodsPrice}",
-                style: const TextStyle(
-                  // backgroundColor: Colors.red,
-                  decoration: TextDecoration.lineThrough,
-                ),
-              )
-            ],
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

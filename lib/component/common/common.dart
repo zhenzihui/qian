@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:qian/ext/extendable_theme.dart';
 import 'package:qian/util/adaptor.dart';
 
-PreferredSizeWidget getAppBar({String? title}) {
+PreferredSizeWidget getAppBar(BuildContext context, {String? title}) {
+  final myTheme = MyThemeWidget.of(context)!;
+
   return AppBar(
     automaticallyImplyLeading: false,
     centerTitle: false,
     shape: Border.all(color: SU.theme.focusColor),
     title: title != null
-        ? Text(title)
+        ? Text(title, style: myTheme.pageTitle)
         : ListenableBuilder(
         listenable: SU.appBarTitle,
-        builder: (context, _) => Text(SU.appBarTitle.value)),
+        builder: (bc, _) => Text(SU.appBarTitle.value, style: myTheme.pageTitle)),
   );
 }
 
