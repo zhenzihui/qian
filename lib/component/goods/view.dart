@@ -4,6 +4,7 @@ import 'package:qian/ext/extendable_theme.dart';
 import 'package:qian/model/local/goods.dart';
 
 import 'logic.dart';
+
 //单个商品item
 class GoodsComponent extends StatelessWidget {
   final BaseGoods goods;
@@ -65,10 +66,8 @@ class GoodsComponent extends StatelessWidget {
                   ),
                   Text(
                     "¥${goods.goodsPrice}",
-                    style: const TextStyle(
-                      // backgroundColor: Colors.red,
-                      decoration: TextDecoration.lineThrough,
-                    ),
+                    style: theme.priceText
+                        .copyWith(decoration: TextDecoration.lineThrough),
                   )
                 ],
               ),

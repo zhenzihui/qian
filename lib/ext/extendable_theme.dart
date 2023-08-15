@@ -38,11 +38,11 @@ class MyThemeWidget extends InheritedWidget {
   MyThemeWidget({
     Key? key,
     required child,
-    required this.pageTitle,
-    required this.cardTitle,
-    required this.categoryTitle,
-    required this.priceText,
-    required this.specialPriceText,
+    this.pageTitle = const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    this.cardTitle = const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+    this.categoryTitle = const TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+    this.priceText = const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+    this.specialPriceText = const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.deepOrange),
   })  : smallBorderRadius = BorderRadius.circular(5),
         smallRadius = const Radius.circular(5),
         super(key: key, child: child);
@@ -59,16 +59,4 @@ class MyThemeWidget extends InheritedWidget {
     return context.dependOnInheritedWidgetOfExactType<MyThemeWidget>();
   }
 
-  static MyThemeWidget withDefaultValue(Widget child) {
-    return MyThemeWidget(
-      pageTitle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-      cardTitle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-      priceText: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-      categoryTitle:
-          const TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
-      specialPriceText: const TextStyle(
-          fontSize: 14, fontWeight: FontWeight.bold, color: Colors.deepOrange),
-      child: child,
-    );
-  }
 }

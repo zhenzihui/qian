@@ -21,7 +21,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SU.initialize(context, uiWidth: 360);
 
-    return MyThemeWidget.withDefaultValue(GetMaterialApp(
+    return MyThemeWidget(
+        child: GetMaterialApp(
       title: 'Flutter Demo',
       initialRoute: "/",
       getPages: _pages(),
